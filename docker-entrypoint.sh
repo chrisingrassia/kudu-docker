@@ -31,7 +31,7 @@ elif [ "$1" = 'tserver' ]; then
   exec kudu-tserver -fs_wal_dir /var/lib/kudu/tserver \
   -tserver_master_addrs ${KUDU_MASTER} ${KUDU_OPTS}
 elif [ "$1" = 'single' ]; then
-  KUDU_MASTER=boot2docker
+  KUDU_MASTER=${KUDU_MASTER:-boot2docker}
   KUDU_MASTER_OPTS="-logtostderr \
    -fs_wal_dir=/var/lib/kudu/master \
    -fs_data_dirs=/var/lib/kudu/master \
