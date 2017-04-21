@@ -18,10 +18,15 @@ function do_help {
   exit 0
 }
 
+USE_HYBRID_CLOCK=${USE_HYBRID_CLOCK:-true}
+FLUSH_SECS=${FLUSH_SECS:-120}
+
 DEFAULT_KUDU_OPTS="-logtostderr \
+ --unlock_experimental_flags \
  -fs_wal_dir=/var/lib/kudu/$1 \
  -fs_data_dirs=/var/lib/kudu/$1 \
- -use_hybrid_clock=false"
+ -flush_threshold_secs=${FLUSH_SECS} \
+ -use_hybrid_clock=${USE_HYBRID_CLOCK}"
 
 KUDU_OPTS=${KUDU_OPTS:-${DEFAULT_KUDU_OPTS}}
 
@@ -33,13 +38,17 @@ elif [ "$1" = 'tserver' ]; then
 elif [ "$1" = 'single' ]; then
   KUDU_MASTER=${KUDU_MASTER:-boot2docker}
   KUDU_MASTER_OPTS="-logtostderr \
+   --unlock_experimental_flags \
    -fs_wal_dir=/var/lib/kudu/master \
    -fs_data_dirs=/var/lib/kudu/master \
-   -use_hybrid_clock=false"
+   -flush_threshold_secs=${FLUSH_SECS} \
+   -use_hybrid_clock=${USE_HYBRID_CLOCK}"
   KUDU_TSERVER_OPTS="-logtostderr \
+   --unlock_experimental_flags \
    -fs_wal_dir=/var/lib/kudu/tserver \
    -fs_data_dirs=/var/lib/kudu/tserver \
-   -use_hybrid_clock=false"
+   -flush_threshold_secs=${FLUSH_SECS} \
+   -use_hybrid_clock=${USE_HYBRID_CLOCK}"
   exec kudu-master -fs_wal_dir /var/lib/kudu/master ${KUDU_MASTER_OPTS} &
   sleep 5
   exec kudu-tserver -fs_wal_dir /var/lib/kudu/tserver \

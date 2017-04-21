@@ -10,7 +10,9 @@ apt-get -y install kudu kudu-master kudu-tserver libkuduclient0 libkuduclient-de
 
 VOLUME /var/lib/kudu/master /var/lib/kudu/tserver
 
-ENV KUDU_MASTER=boot2docker
+ENV KUDU_MASTER=boot2docker \
+    USE_HYBRID_CLOCK=false \
+    FLUSH_SECS=120
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
