@@ -1,5 +1,5 @@
 FROM centos:7 as builder
-ENV KUDU_URL=https://archive.apache.org/dist/kudu/1.6.0/apache-kudu-1.6.0.tar.gz
+ENV KUDU_URL=https://archive.apache.org/dist/kudu/1.8.0/apache-kudu-1.8.0.tar.gz
 RUN yum -y update && \
   yum -y install wget curl autoconf automake cyrus-sasl-devel cyrus-sasl-gssapi \
   cyrus-sasl-plain flex gcc gcc-c++ gdb git java-1.8.0-openjdk-devel \
