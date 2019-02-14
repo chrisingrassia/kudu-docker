@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 set -e
 
 function do_help {
@@ -22,6 +22,8 @@ USE_HYBRID_CLOCK=${USE_HYBRID_CLOCK:-true}
 FLUSH_SECS=${FLUSH_SECS:-120}
 
 DEFAULT_KUDU_OPTS="-logtostderr \
+ --rpc-encryption=disabled \
+ --rpc-authentication=disabled \
  --unlock_experimental_flags \
  -fs_wal_dir=/var/lib/kudu/$1 \
  -fs_data_dirs=/var/lib/kudu/$1 \
